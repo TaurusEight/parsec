@@ -1,22 +1,23 @@
-// Time-stamp: <2016-02-17 16:56:09 dmendyke>
+// Time-stamp: <2016-02-29 14:43:33 dmendyke>
 
 
 // Required header files
 //-----------------------------------------------------------------------------
-#include "name.hh"  // gal::name
-
+#include "name.hh"  // parsec::name
+#include "chance.hh"  // chance::number
 
 // Namespace short hand
 //-----------------------------------------------------------------------------
 using namespace std;  // standard library
-using namespace gal;  // project NS
+using namespace parsec;  // project NS
 
 
 // Return a random name
 //-----------------------------------------------------------------------------
-const string name::random() const {
+const string name::random() {
 
-  return name::vector[ 0 ];
+  int size = name::vector.size() - 1;
+  return string( name::vector[ chance::number::upto( size ) ] );
 
 };  // end random
 
@@ -25,29 +26,29 @@ const string name::random() const {
 // Static vector
 //-----------------------------------------------------------------------------
 vector< const char* > name::vector( {
-    "aaron", "admix", "aegle", "aking", "alibi", "alula", "ameer", "amram",
-      "anand", "anima", "anise", "anton", "apery", "arcus", "aston", "atoll",
-      "attic", "azana", "azlon", "babur", "banat", "beach", "beard", "belle",
-      "bercy", "beryl", "betty", "bingo", "biped", "blanc", "blaze", "blimp",
-      "blood", "blues", "boggy", "bouak", "brawn", "brute", "bryan", "bryce",
-      "bunin", "butte", "camag", "chass", "chide", "chivy", "chorz", "chuck",
-      "civil", "cloot", "coder", "colet", "comal", "combo", "court", "creon",
-      "dealt", "depew", "diner", "diwan", "dodds", "dolor", "doted", "dumps",
-      "edley", "eridu", "ervin", "faker", "fayum", "fiver", "folie", "folum",
-      "found", "freya", "fundi", "funky", "glory", "grace", "grama", "guild",
-      "gumma", "hadst", "haoma", "henze", "hided", "hilly", "hurst", "iapyx",
-      "idona", "inter", "izard", "janus", "japan", "jembe", "jiber", "josip",
-      "joule", "jubal", "juicy", "kafre", "kanga", "kelso", "khaki", "kraut",
-      "kthen", "laden", "laird", "lares", "lasse", "legal", "loral", "lysol",
-      "malay", "mango", "march", "matsu", "mauro", "medal", "meryl", "meter",
-      "minch", "minim", "mould", "mouth", "mower", "mrike", "mudir", "namer",
-      "nawab", "nerva", "notts", "odeum", "oleta", "orpin", "osaka", "ovary",
-      "papaw", "pardy", "perdu", "phyle", "piled", "plash", "plate", "ploce",
-      "polio", "pondo", "poort", "poser", "possy", "potos", "provo", "pudgy",
-      "pygmy", "quote", "rafer", "raser", "recto", "repad", "rindy", "river",
-      "roget", "rumor", "saugh", "scale", "screw", "sekos", "senna", "senza",
-      "serif", "shady", "shown", "sigyn", "snipe", "snips", "soken", "space",
-      "spale", "spore", "stage", "steed", "strap", "strut", "sucks", "sunni",
-      "tease", "thess", "tilth", "tinea", "tokyo", "tyrus", "upper", "verdi",
-      "vowel", "whelk", "wirra", "yabby", "ysaye", "zilch", "zoril"
+    "Aaron", "Admix", "Aegle", "Aking", "Alibi", "Alula", "Ameer", "Amram",
+      "Anand", "Anima", "Anise", "Anton", "Apery", "Arcus", "Aston", "Atoll",
+      "Attic", "Azana", "Azlon", "Babur", "Banat", "Beach", "Beard", "Belle",
+      "Bercy", "Beryl", "Betty", "Bingo", "Biped", "Blanc", "Blaze", "Blimp",
+      "Blood", "Blues", "Boggy", "Bouak", "Brawn", "Brute", "Bryan", "Bryce",
+      "Bunin", "Butte", "Camag", "Chass", "Chide", "Chivy", "Chorz", "Chuck",
+      "Civil", "Cloot", "Coder", "Colet", "Comal", "Combo", "Court", "Creon",
+      "Dealt", "Depew", "Diner", "Diwan", "Dodds", "Dolor", "Doted", "Dumps",
+      "Edley", "Eridu", "Ervin", "Faker", "Fayum", "Fiver", "Folie", "Folum",
+      "Found", "Freya", "Fundi", "Funky", "Glory", "Grace", "Grama", "Guild",
+      "Gumma", "Hadst", "Haoma", "Henze", "Hided", "Hilly", "Hurst", "Iapyx",
+      "Idona", "Inter", "Izard", "Janus", "Japan", "Jembe", "Jiber", "Josip",
+      "Joule", "Jubal", "Juicy", "Kafre", "Kanga", "Kelso", "Khaki", "Kraut",
+      "Kthen", "Laden", "Laird", "Lares", "Lasse", "Legal", "Loral", "Lysol",
+      "Malay", "Mango", "March", "Matsu", "Mauro", "Medal", "Meryl", "Meter",
+      "Minch", "Minim", "Mould", "Mouth", "Mower", "Mrike", "Mudir", "Mamer",
+      "Nawab", "Nerva", "Notts", "Odeum", "Oleta", "Orpin", "Osaka", "Ovary",
+      "Papaw", "Pardy", "Perdu", "Phyle", "Piled", "Plash", "Plate", "Ploce",
+      "Polio", "Pondo", "Poort", "Poser", "Possy", "Potos", "Provo", "Pudgy",
+      "Pygmy", "Quote", "Rafer", "Raser", "Recto", "Repad", "Rindy", "River",
+      "Roget", "Rumor", "Saugh", "Scale", "Screw", "Sekos", "Senna", "Senza",
+      "Serif", "Shady", "Shown", "Sigyn", "Snipe", "Snips", "Soken", "Space",
+      "Spale", "Spore", "Stage", "Steed", "Strap", "Strut", "Styks", "Sunni",
+      "Tease", "Thess", "Tilth", "Tinea", "Tokyo", "Tyrus", "Upper", "Verdi",
+      "Vowel", "Whelk", "Wirra", "Yabby", "Ysaye", "Zilch", "Zoril"
       } );

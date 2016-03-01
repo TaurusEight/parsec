@@ -1,4 +1,4 @@
-// Time-stamp: <2016-02-29 02:12:10 daniel>
+// Time-stamp: <2016-02-29 14:18:49 dmendyke>
 
 
 //
@@ -69,29 +69,6 @@ void fleet_t::destroy( uint64_t id ) {
 
 
 
-// Create a list of three attackers
-//-----------------------------------------------------------------------------
-array< pair< int, uint64_t >, 3 > fleet_t::attackers() const {
-
-  array< pair< int, uint64_t >, 3 > result;
-  result[ 0 ] = make_pair( map_[ 0 ](), map_[ 0 ].id() );
-  result[ 1 ] = make_pair( map_[ 0 ](), map_[ 0 ].id() );
-  result[ 2 ] = make_pair( map_[ 0 ](), map_[ 0 ].id() );
-
-  return result;
-
-};  // end attackers
-
-
-// Generate two defenders
-//-----------------------------------------------------------------------------
-pair< int, uint64_t > fleet_t::defenders() const {
-
-  pair< int, uint64_t > result( make_pair( 4, 1 ) );
-
-  return result;
-
-};  // end defenders
 
 
 // Dump the contents of this fleet

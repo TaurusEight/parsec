@@ -1,4 +1,4 @@
-# Time-stamp: <2016-02-28 23:23:29 daniel>
+# Time-stamp: <2016-02-29 17:14:29 dmendyke>
 
 
 #
@@ -22,7 +22,7 @@ AR := /usr/bin/ar
 
 
 ##
-files = chance agent ship fleet application main
+files = chance name agent ship fleet application main
 
 
 ##
@@ -53,6 +53,9 @@ include $(dependents)
 $(target) : $(objects) ; $(cc) $(ccflags) -o $@ $^
 
 
+sample : sample.cc chance.o ; $(cc) $(ccflags) -o $@ $^
+
+
 ##
 # Debugging rule
 .PHONEY: dump
@@ -72,7 +75,7 @@ run : ; @./generate && cat log.out
 ##
 # Remove build files
 .PHONEY:	clean
-clean : ; $(RM) --force $(target) $(objects)
+clean : ; $(RM) --force $(target) $(objects) sample
 nuke : clean ; $(RM) --force $(dependents)
 
 .PHONEY: wipe
