@@ -1,4 +1,4 @@
-// Time-stamp: <2016-02-29 14:18:49 dmendyke>
+// Time-stamp: <2016-03-01 06:25:56 daniel>
 
 
 //
@@ -68,7 +68,31 @@ void fleet_t::destroy( uint64_t id ) {
 };  // end destroy
 
 
+// Return the reference to a random ship from this fleet
+//-----------------------------------------------------------------------------
+ship_t fleet_t::random_ship_( ) const {
 
+  auto iter = begin();  // first element in this fleet
+
+  advance( iter, chance::number::upto( size() - 1 ) );
+  return iter->second;
+
+};  // end random_ship_
+
+
+// Create a line of battle
+//-----------------------------------------------------------------------------
+vector< ship_t > line_of_battle( ) const {
+
+  vector< ship_t > lob;
+
+  lob.push_back( random_ship_() );
+  lob.push_back( random_ship_() );
+  lob.push_back( random_ship_() );
+
+  return lob;
+
+};  // end
 
 
 // Dump the contents of this fleet

@@ -1,4 +1,4 @@
-// Time-stamp: <2016-02-28 23:59:15 daniel>
+// Time-stamp: <2016-03-01 05:16:13 daniel>
 #ifndef __SHIP_HH__
 #define __SHIP_HH__
 
@@ -27,6 +27,9 @@ namespace parsec {
 
     int operator()() const;  // return the attack value for this ship
     operator int() const;  // return the id of this ship
+
+    bool operator==( const ship_t& ) const;
+    bool operator!=( const ship_t& ) const;
 
     int id() const { return id_; };
 

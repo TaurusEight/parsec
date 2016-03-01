@@ -1,4 +1,4 @@
-// Time-stamp: <2016-02-28 23:58:47 daniel>
+// Time-stamp: <2016-03-01 05:22:37 daniel>
 
 
 //
@@ -61,6 +61,24 @@ int ship_t::operator()() const {
   return chance::number::upto( upper ) + 1;
 
 };  // end operator()
+
+
+// Conditional operators
+//-----------------------------------------------------------------------------
+bool ship_t::operator==( const ship_t& target ) const {
+
+  return id_ == target.id();
+
+};  // end operator==
+
+
+// Conditional operators
+//-----------------------------------------------------------------------------
+bool ship_t::operator!=( const ship_t& target ) const {
+
+  return id_ != target.id();
+
+};  // end operator!=
 
 
 // Dump the ship to outstream
