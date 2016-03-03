@@ -1,4 +1,4 @@
-// Time-stamp: <2016-02-29 13:53:37 dmendyke>
+// Time-stamp: <2016-03-02 12:53:35 dmendyke>
 
 
 //
@@ -11,7 +11,9 @@
 #include <iostream>  // std::cout, std::endl;
 #include "application.hh"  // parsec::application
 #include "fleet.hh"  // parsec::fleet_t
+#include "line.hh"  // parsec::battle_line_t
 #include "name.hh"  // parsec::name
+#include "battle.hh"  // parsec::battle_t
 
 
 // NS short hand
@@ -24,7 +26,9 @@ using namespace parsec;  // project namespace
 //-----------------------------------------------------------------------------
 application::application() {
 
-  for ( int iter = 0; iter < 20; ++iter )
+  name::shuffle();  // randomize the names
+
+  for ( int iter = 0; iter < 5; ++iter )
     cout << name::random() << endl;
 
 
@@ -47,11 +51,12 @@ int application::run() {
 
   fleet_t one( red ), two( green );
 
-  one.attach( 3, 12 );
+  one.attach( 10, 12 );
 
-  two.attach( 4, 10 );
+  two.attach( 16, 10 );
 
-  cout << endl << one << endl << two << endl;
+  battle_t battle( two, one );
+  battle.run();
 
   return result;
 

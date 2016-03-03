@@ -1,4 +1,4 @@
-// Time-stamp: <2016-03-01 05:16:13 daniel>
+// Time-stamp: <2016-03-01 15:55:27 dmendyke>
 #ifndef __SHIP_HH__
 #define __SHIP_HH__
 

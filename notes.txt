@@ -1,0 +1,5 @@
+
+
+Selecting three ships from a fleet:
+Select the first three ships.
+Select three random ships.

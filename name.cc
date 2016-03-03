@@ -1,10 +1,14 @@
-// Time-stamp: <2016-02-29 14:43:33 dmendyke>
+// Time-stamp: <2016-03-02 14:06:44 dmendyke>
 
 
 // Required header files
 //-----------------------------------------------------------------------------
+#include <stdexcept>  // std::runtime_error
+#include <algorithm>  // std::randome_shuffle
+#include <random>  // std::default_random_engine
 #include "name.hh"  // parsec::name
-#include "chance.hh"  // chance::number
+#include "chance.hh"  // chance::number::shuffle
+
 
 // Namespace short hand
 //-----------------------------------------------------------------------------
@@ -16,11 +20,23 @@ using namespace parsec;  // project NS
 //-----------------------------------------------------------------------------
 const string name::random() {
 
-  int size = name::vector.size() - 1;
-  return string( name::vector[ chance::number::upto( size ) ] );
+  static auto iter = name::vector.begin();
+
+  if ( iter == name::vector.end() )
+    throw runtime_error( "No more names" );
+
+  return string( *iter++ );
 
 };  // end random
 
+
+// Randomly shuffle the names in the list
+//-----------------------------------------------------------------------------
+void name::shuffle( ) {
+
+  chance::number::shuffle( name::vector.begin(), name::vector.end() );
+
+};  // end shuffle
 
 
 // Static vector

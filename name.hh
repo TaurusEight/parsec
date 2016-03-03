@@ -1,4 +1,4 @@
-// Time-stamp: <2016-02-29 13:51:38 dmendyke>
+// Time-stamp: <2016-03-02 12:51:51 dmendyke>
 #ifndef __NAME_HH__
 #define __NAME_HH__
 
@@ -22,6 +22,7 @@ namespace parsec {
   public:
 
     static const std::string  random();
+    static void shuffle( );
 
   private:
 

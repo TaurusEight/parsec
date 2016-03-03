@@ -1,11 +1,11 @@
-// Time-stamp: <2016-02-28 23:46:25 daniel>
+// Time-stamp: <2016-03-02 15:55:26 dmendyke>
 #ifndef __FLEET_HH__
 #define __FLEET_HH__
 
 
 // Required header files
 //-----------------------------------------------------------------------------
-#include <map>  // std::map
+#include <vector>  // std::map
 #include "agent.hh"  // parsec::agent_t
 #include "ship.hh"  // parsec::ship_t
 
@@ -29,6 +29,15 @@ namespace parsec {
     void attach( int, int );  // add a number of ships
     void destroy( uint64_t );  // destroy a ship in this fleet
 
+    auto begin() { return vector_.begin(); };
+    auto end() { return vector_.end(); };
+    auto empty() { return vector_.empty(); };
+    auto size() { return vector_.size(); };
+
+    void shuffle();
+
+
+    const ship_t& operator[]( int ) const;
     friend std::ostream& operator<<( std::ostream&, const fleet_t& );
 
   protected:
@@ -36,12 +45,13 @@ namespace parsec {
   private:
 
     const agent_t& agent_;
-    std::map< uint64_t, ship_t > map_;
+    std::vector< ship_t > vector_;
 
   };  // end class fleet_t
 
   // dump this fleet to the output stream
   std::ostream& operator<<( std::ostream&, const fleet_t& );
+
 
 };  // end parsec - project NS
 

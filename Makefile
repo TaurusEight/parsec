@@ -1,4 +1,4 @@
-# Time-stamp: <2016-02-29 17:14:29 dmendyke>
+# Time-stamp: <2016-03-02 11:10:43 dmendyke>
 
 
 #
@@ -22,7 +22,7 @@ AR := /usr/bin/ar
 
 
 ##
-files = chance name agent ship fleet application main
+files = chance name agent ship fleet combatant line battle application main
 
 
 ##
@@ -53,7 +53,7 @@ include $(dependents)
 $(target) : $(objects) ; $(cc) $(ccflags) -o $@ $^
 
 
-sample : sample.cc chance.o ; $(cc) $(ccflags) -o $@ $^
+sample : sample.cc ship.o combatant.o chance.o ; $(cc) $(ccflags) -o $@ $^
 
 
 ##

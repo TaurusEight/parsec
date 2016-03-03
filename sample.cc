@@ -4,15 +4,15 @@
 #include <array>
 #include <algorithm>
 #include "chance.hh"
+#include "combatant.hh"  // parsec::combatant_t
 
 
 
 using namespace std;  // standard library
 
 
-typedef pair< int, int > combat_t;
 
-typedef array< combat_t, 0x3 > battle_line_t;
+typedef array< parsec::combatant_t, 0x3 > battle_line_t;
 
 
 
@@ -30,8 +30,8 @@ combat_t generate_combat_type( ) {
 
 
 struct combat_victor_t {
-  inline bool operator() ( const combat_t& one, const combat_t& two ) {
-    return one.first > two.first;
+  inline bool operator() ( const parsec::combatant_t& one, const parsec::combatant_t& two ) {
+    return one.attack > two.attack;
   };  // end operator()
 };  // end combat_victor_t
 
@@ -39,7 +39,7 @@ struct combat_victor_t {
 //-----------------------------------------------------------------------------
 battle_line_t generate_battle_line( role_t role ) {
 
-  static combat_t empty( make_pair( 0x0, 0x0 ) );
+  static parsec::combatant_t empty;
 
   battle_line_t results( {
       generate_combat_type(), generate_combat_type(),

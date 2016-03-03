@@ -1,4 +1,4 @@
-// Time-stamp: <2016-03-01 06:25:56 daniel>
+// Time-stamp: <2016-03-02 16:45:45 dmendyke>
 
 
 //
@@ -10,6 +10,7 @@
 //-----------------------------------------------------------------------------
 #include <ostream>  // std::ostream
 #include "fleet.hh"  // parsec::fleet_t
+#include "chance.hh"  // chance::number::upto
 
 
 // Namespace shorthands
@@ -21,14 +22,14 @@ using namespace parsec;  // project NS
 // Constructor
 //-----------------------------------------------------------------------------
 fleet_t::fleet_t( const agent_t& agent )
-  : agent_( agent ), map_() {
+  : agent_( agent ), vector_() {
 };  // end constructor
 
 
 // Copy constructor
 //-----------------------------------------------------------------------------
 fleet_t::fleet_t( const fleet_t& org )
-  : agent_( org.agent_ ), map_( org.map_ ) {
+  : agent_( org.agent_ ), vector_( org.vector_ ) {
 };  // end constructor
 
 
@@ -42,7 +43,7 @@ fleet_t::~fleet_t( ) {
 //-----------------------------------------------------------------------------
 void fleet_t::attach( ship_t& ship ) {
 
-  map_.insert( pair< uint64_t, ship_t >( ship.id(), ship ) );
+  vector_.push_back( ship );
 
 };  // end  attach
 
@@ -51,10 +52,8 @@ void fleet_t::attach( ship_t& ship ) {
 //-----------------------------------------------------------------------------
 void fleet_t::attach( int count, int tech_level ) {
 
-  ship_t ship;
-
-  for( int iter = 0; iter < count; ++iter )
-    attach( ship = ship_t( tech_level ) );
+  for ( int iter = 0; iter < count; ++iter )
+    vector_.push_back( ship_t( tech_level ) );
 
 };  // end attach a number of ships
 
@@ -63,47 +62,42 @@ void fleet_t::attach( int count, int tech_level ) {
 //-----------------------------------------------------------------------------
 void fleet_t::destroy( uint64_t id ) {
 
-  map_.erase( id );
+  auto func = [ id ]( const ship_t& S ){ return S.id() == id; };
+  auto iter = find_if( vector_.begin(), vector_.end(), func );
+
+  if ( iter == vector_.end() )
+    throw runtime_error( "Requesting ship not in this fleet!" );
+
+  vector_.erase( iter );  // remove this ship
 
 };  // end destroy
 
 
-// Return the reference to a random ship from this fleet
+// Randomize the ships in this fleet
 //-----------------------------------------------------------------------------
-ship_t fleet_t::random_ship_( ) const {
+void fleet_t::shuffle( ) {
 
-  auto iter = begin();  // first element in this fleet
+  chance::number::shuffle( vector_.begin(), vector_.end() );
 
-  advance( iter, chance::number::upto( size() - 1 ) );
-  return iter->second;
-
-};  // end random_ship_
+ };  // end shuffle
 
 
-// Create a line of battle
 //-----------------------------------------------------------------------------
-vector< ship_t > line_of_battle( ) const {
+const ship_t& fleet_t::operator[]( int index ) const {
 
-  vector< ship_t > lob;
+  static ship_t empty;
 
-  lob.push_back( random_ship_() );
-  lob.push_back( random_ship_() );
-  lob.push_back( random_ship_() );
+  if ( index >= vector_.size() ) return empty;
+  return vector_[ index ];
 
-  return lob;
-
-};  // end
+};  // end operator[]
 
 
 // Dump the contents of this fleet
 //-----------------------------------------------------------------------------
 ostream& parsec::operator<<( ostream& out, const fleet_t& fleet ) {
 
-  out << "Fleet owned by " << fleet.agent_ << endl;
-  for( auto& iter : fleet.map_ )
-    out << iter.second;
-  out << endl;
-
+  out << fleet.agent_ << ": " << fleet.vector_.size() << " ships";
   return out;
 
 };  // end operator<<
