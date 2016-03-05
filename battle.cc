@@ -1,4 +1,4 @@
-// Time-stamp: <2016-03-02 16:45:09 dmendyke>
+// Time-stamp: <2016-03-03 09:32:11 dmendyke>
 
 
 //
@@ -34,14 +34,18 @@ battle_t::~battle_t() {
 };  // end destructor
 
 
+// Determine the outcome of a single ship to ship fight
+//-----------------------------------------------------------------------------
 void battle_t::victory_( const combatant_t& def, const combatant_t& agg ) {
+
+  if ( ( def.attack == 0 ) || ( agg.attack == 0 ) ) return;
 
   if ( def.attack < agg.attack ) {
     defender_.destroy( def.id );
-    cout << "defender ship " << def.id << " destroyed" << endl;
+    //    cout << "defender ship " << def.id << " destroyed" << endl;
   } else {
     attacker_.destroy( agg.id );
-    cout << "aggressor ship " << agg.id << " destroyed" << endl;
+    //    cout << "aggressor ship " << agg.id << " destroyed" << endl;
   };  // end / else
 
 };  // end victory_
@@ -54,7 +58,7 @@ void battle_t::engagement_() {
   battle_line_t defense( defender_ );
   battle_line_t aggressor( attacker_ );
 
-  cout << "defense: " << defense << endl
+  cout << "defense: " << defense << "/ "
        << "aggressor: " << aggressor << endl;
 
   victory_( defense[ 0 ], aggressor[ 0 ] );
@@ -68,15 +72,21 @@ void battle_t::engagement_() {
 //-----------------------------------------------------------------------------
 void battle_t::run( ) {
 
-  //  while ( ( defender_.empty() == false ) && ( attacker_.empty() == false ) ) {
-    cout << defender_ << attacker_ << endl;
-    engagement_();
-    //  };  // end while loop
+  cout << "Battle Starts!" << endl
+       << endl << defender_ << " - " << attacker_ << endl;
 
-  //  while ( ( defender_.empty() == false ) && ( attacker_.empty() == false ) ) {
-    cout << defender_ << attacker_ << endl;
+  while ( ( defender_.empty() == false ) && ( attacker_.empty() == false ) ) {
     engagement_();
-    //  };  // end while loop
+    cout << endl << defender_ << " - " << attacker_ << endl;
+  };  // end while loop
 
+  cout << endl;
+
+  if ( defender_.empty() )
+    cout << "Victor for the invading fleet!  " << attacker_.agent().id()
+         << " wins and has " << attacker_.size() << " ships!" << endl;
+  else cout << "Defense holds firm!  " << defender_.agent().id()
+            << " wins and has "  << defender_.size()
+            << " ships left!" << endl;
 
 };  // end run

@@ -1,4 +1,4 @@
-// Time-stamp: <2016-03-01 17:03:21 dmendyke>
+// Time-stamp: <2016-03-03 09:24:01 dmendyke>
 
 
 // Required header files
@@ -23,7 +23,10 @@ combatant_t::combatant_t( int ship_attack, uint64_t ship_id )
 // Other constructor
 //-----------------------------------------------------------------------------
 combatant_t::combatant_t( const ship_t& ship )
-  : combatant_t( ship(), ship.id() ) {
+  : combatant_t( 0x0, ship.id() ) {
+
+  if ( id != 0x0 ) attack = ship();
+
 };  // end other constructor
 
 

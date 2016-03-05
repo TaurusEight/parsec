@@ -1,4 +1,4 @@
-# Time-stamp: <2016-03-02 11:10:43 dmendyke>
+# Time-stamp: <2016-03-03 08:33:04 dmendyke>
 
 
 #
@@ -9,7 +9,7 @@
 ##
 # Macros
 cc := /usr/bin/g++
-ccflags := -std=c++14  -I/home/dmendyke/dev/cc/ct
+ccflags := -g -std=c++14  -I/home/dmendyke/dev/cc/ct
 sh := /bin/bash
 RM := /bin/rm
 AR := /usr/bin/ar

@@ -1,4 +1,4 @@
-// Time-stamp: <2016-03-02 15:55:26 dmendyke>
+// Time-stamp: <2016-03-03 09:26:28 dmendyke>
 #ifndef __FLEET_HH__
 #define __FLEET_HH__
 
@@ -36,6 +36,7 @@ namespace parsec {
 
     void shuffle();
 
+    const agent_t& agent() const { return agent_; };
 
     const ship_t& operator[]( int ) const;
     friend std::ostream& operator<<( std::ostream&, const fleet_t& );

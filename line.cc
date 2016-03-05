@@ -1,4 +1,4 @@
-// Time-stamp: <2016-03-02 16:23:59 dmendyke>
+// Time-stamp: <2016-03-03 09:24:19 dmendyke>
 
 
 //
@@ -54,11 +54,9 @@ void battle_line_t::fill_line_() {
     return A.attack > B.attack;
   };
 
-
   line_[ 0 ] = combatant_t( fleet_[ 0 ] );
   line_[ 1 ] = combatant_t( fleet_[ 1 ] );
   line_[ 2 ] = combatant_t( fleet_[ 2 ] );
-
 
   sort( line_.begin(), line_.end(), func );
 

@@ -1,4 +1,4 @@
-// Time-stamp: <2016-03-02 12:53:35 dmendyke>
+// Time-stamp: <2016-03-03 10:49:45 dmendyke>
 
 
 //
@@ -31,7 +31,6 @@ application::application() {
   for ( int iter = 0; iter < 5; ++iter )
     cout << name::random() << endl;
 
-
 };  // end constructor
 
 
@@ -51,9 +50,9 @@ int application::run() {
 
   fleet_t one( red ), two( green );
 
-  one.attach( 10, 12 );
+  one.attach( 20, 12 );
 
-  two.attach( 16, 10 );
+  two.attach( 28, 10 );
 
   battle_t battle( two, one );
   battle.run();
