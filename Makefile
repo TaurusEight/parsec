@@ -1,4 +1,4 @@
-# Time-stamp: <2016-03-03 08:33:04 dmendyke>
+# Time-stamp: <2016-03-07 10:19:24 dmendyke>
 
 
 #
@@ -22,7 +22,7 @@ AR := /usr/bin/ar
 
 
 ##
-files = chance name agent ship fleet combatant line battle application main
+files = chance name hex agent ship fleet combatant line battle application main
 
 
 ##
