@@ -1,4 +1,4 @@
-// Time-stamp: <2016-03-07 10:22:53 dmendyke>
+// Time-stamp: <2016-03-09 16:58:33 dmendyke>
 
 
 //
@@ -29,7 +29,6 @@ application::application() {
 
   name::shuffle();  // randomize the names
 
-
 };  // end constructor
 
 
@@ -56,8 +55,8 @@ int application::run() {
   battle_t battle( two, one );
   battle.run();
 
-  hex_t A( 0, -3 ), B( -3, 3 );
-  cout << endl << "Distance: " << A.distance( B ) << endl;
+  //  hex_t A( 0, -3 ), B( -3, 3 );
+  // cout << endl << "Distance: " << A.distance( B ) << endl;
 
 
   return result;

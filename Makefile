@@ -1,4 +1,4 @@
-# Time-stamp: <2016-03-07 10:19:24 dmendyke>
+# Time-stamp: <2016-03-09 16:57:52 dmendyke>
 
 
 #
@@ -69,7 +69,8 @@ dump:
 ##
 # Run the application and dump the log file
 .PHONEY: run
-run : ; @./generate && cat log.out
+run : ; @./$(target)
+#run : ; @./$(target) && cat log.out
 
 
 ##
