@@ -1,0 +1,27 @@
+
+parsec::system_t
+-------------------------------------------------
+name:     std::string
+hex:      parsec::hex_t r, q of the hex index
+tech:     tech level of this system [ 08-19 ]
+prod:     production level of this system [ 0-9 ]
+fleet:    parsec::fleet_t
+incoming: std::map< float, parsec::fleet_t >
+
+
+"          "
+"  Name    "
+"  Tech19  "
+"  Prod09  "
+"  Red     "
+"          "
+
+
+
+parsec::cell_t
+---------------------------------------------------
+line[ 0 ] = "          "
+line[ 1 ] = "%s"
+line[ 2 ] = "Tech##"
+line[ 3 ] = "Prod##"
+line[ 4 ] = "%s"

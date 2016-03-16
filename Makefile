@@ -1,4 +1,4 @@
-# Time-stamp: <2016-03-15 12:37:12 dmendyke>
+# Time-stamp: <2016-03-16 16:26:21 dmendyke>
 
 
 #
@@ -12,7 +12,8 @@ cc := /usr/bin/g++
 ccflags := -g -std=c++14  -I/home/dmendyke/dev/cc/ct
 sh := /bin/bash
 RM := /bin/rm
-AR := /usr/bin/ar
+ARFLAGS := rcs
+AR := /usr/bin/ar $(ARFLAGS)
 dep := $(sh) ./tools/dep.sh
 
 ##
@@ -22,48 +23,39 @@ dep := $(sh) ./tools/dep.sh
 
 
 ##
-files = chance name hex agent ship fleet combatant line battle application main
+files = chance name hex universe agent ship fleet  \
+        combatant line battle application main
 
 
 ##
-objects =
+# Empty macros
 dependents =
-targets =
-libraries =
-
+lib =
+libobjs =
+cleanable =
 
 ##
 target := parsec
 source = $(addsuffix .cc,$(files))
 objects += $(source:.cc=.o)
 dependents += $(source:.cc=.d)
-web_elements = js/parsec.html js/parsec.css
+cleanable += $(objects) $(target)
+
 
 ##
 # Main target
-all : $(target) $(dependents) $(web_elements) ; @echo Build Completed
+all : $(target) $(dependents) ; @echo Build Completed
+
 
 ##
-#include services/module.mk
-include js/module.mk
+#includes
+include metric/module.mk
 include $(dependents)
 
+
 ##
 # Main target
-$(target) : $(objects) ; $(cc) $(ccflags) -o $@ $^
-
-
-sample : sample.cc ship.o combatant.o chance.o ; $(cc) $(ccflags) -o $@ $^
-
-
-##
-# Debugging rule
-.PHONEY: dump
-dump:
-	@echo TARGETS: $(target)
-	@echo OBJECTS: $(objects)
-	@echo DEPENDENTS: $(dependents)
-	@echo LIBRARIES: $(libraries)
+$(target) : $(objects) $(libobjs) ; $(cc) $(ccflags) -o $@ $(objects) $(lib)
 
 
 ##
@@ -76,9 +68,11 @@ run : ; @./$(target)
 ##
 # Remove build files
 .PHONEY:	clean
-clean : ; $(RM) --force $(target) $(objects) $(web_elements)
+clean : ; $(RM) --force $(cleanable)
 nuke : clean ; $(RM) --force $(dependents)
 
+
+##
+# Remove just the dependent files
 .PHONEY: wipe
-wipe:
-	$(RM) --force *.d
+wipe : ; $(RM) --force *.d
