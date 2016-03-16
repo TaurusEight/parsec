@@ -1,4 +1,4 @@
-# Time-stamp: <2016-03-09 16:57:52 dmendyke>
+# Time-stamp: <2016-03-15 12:37:12 dmendyke>
 
 
 #
@@ -13,11 +13,11 @@ ccflags := -g -std=c++14  -I/home/dmendyke/dev/cc/ct
 sh := /bin/bash
 RM := /bin/rm
 AR := /usr/bin/ar
-
+dep := $(sh) ./tools/dep.sh
 
 ##
 # Rules
-%.d : %.cc ; $(sh) ./dep.sh $<
+%.d : %.cc ; $(dep) $<
 %.o : %.cc ; $(cc) $(ccflags) -c -o $@ $<
 
 
@@ -37,15 +37,15 @@ target := parsec
 source = $(addsuffix .cc,$(files))
 objects += $(source:.cc=.o)
 dependents += $(source:.cc=.d)
-
+web_elements = js/parsec.html js/parsec.css
 
 ##
 # Main target
-all : $(target) $(dependents) ; @echo Build Completed
+all : $(target) $(dependents) $(web_elements) ; @echo Build Completed
 
 ##
 #include services/module.mk
-
+include js/module.mk
 include $(dependents)
 
 ##
@@ -76,7 +76,7 @@ run : ; @./$(target)
 ##
 # Remove build files
 .PHONEY:	clean
-clean : ; $(RM) --force $(target) $(objects) sample
+clean : ; $(RM) --force $(target) $(objects) $(web_elements)
 nuke : clean ; $(RM) --force $(dependents)
 
 .PHONEY: wipe

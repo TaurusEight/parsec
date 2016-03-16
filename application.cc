@@ -1,4 +1,4 @@
-// Time-stamp: <2016-03-09 16:58:33 dmendyke>
+// Time-stamp: <2016-03-15 17:13:54 dmendyke>
 
 
 //
@@ -38,6 +38,50 @@ application::~application() {
 };  // end destructor
 
 
+
+bool is_odd( int integer ) {
+  bool result = ( integer % 2 ) == 1;
+  return result;
+};  // end is_odd
+
+
+//-----------------------------------------------------------------------------
+void dump_field( ) {
+
+  string header;
+
+  for ( int row = 0; row < 7; ++row ) {
+
+    is_odd( row ) ? header = "   " : header = "";
+
+    for( int line = 0; line < 5; ++line ) {
+
+
+
+      for( int col = 0; col < 7; ++col ) {
+
+        if ( col == 0 ) cout << header;
+
+        switch( line ) {
+        case 1: cout << "   " << name::random() << "   "; break;
+        case 2: cout << "  " << "tech 12" << "  "; break;
+        case 3: cout << "  " << "Prod 06" << "  "; break;
+        default: cout << "        "; break;
+        };  // end switch
+
+      };  // end for line loop
+
+      cout << endl;
+
+    };  // end for col loop
+
+  };  // end for row
+
+  };  // end dump_field
+
+
+
+
 // Return the application exit code
 //-----------------------------------------------------------------------------
 int application::run() {
@@ -49,15 +93,15 @@ int application::run() {
   fleet_t one( red ), two( green );
 
   one.attach( 20, 12 );
-
   two.attach( 28, 10 );
 
   battle_t battle( two, one );
-  battle.run();
+  //  battle.run();
 
-  //  hex_t A( 0, -3 ), B( -3, 3 );
-  // cout << endl << "Distance: " << A.distance( B ) << endl;
 
+  dump_field();
+
+  cout << endl;
 
   return result;
 
